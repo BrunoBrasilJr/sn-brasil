@@ -2,49 +2,57 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { site } from "@/lib/site";
 
-type TocItem = { href: string; label: string };
-type SummaryItem = { color: "green" | "gold"; text: string };
-
-type Notice = {
-  title: string;
-  badge?: string;
-  body: React.ReactNode;
+type TocItem = {
+  href: string; // ex: "#dados"
+  label: string; // ex: "1. Dados coletados"
 };
 
-type Section = {
-  id: string;
-  title: string;
-  body: React.ReactNode;
+type SummaryBullet = {
+  label: string;
+  dotClassName?: string; // ex: "bg-brand-green"
 };
 
-type InfoCard = {
+type SectionItem = {
+  id: string; // ex: "dados"
   title: string;
-  body: React.ReactNode;
+  content: React.ReactNode;
 };
 
-type Props = {
+type ControllerCard = {
+  title: string;
+  content: React.ReactNode;
+};
+
+type InstitutionalPageTemplateProps = {
   pillLabel: string;
   title: string;
   description: React.ReactNode;
 
-  notice?: Notice;
-
-  tocTitle?: string;
-  tocItems: TocItem[];
-
-  summaryTitle?: string;
-  summaryItems?: SummaryItem[];
-
-  sections: Section[];
-
-  infoBlock?: {
+  notice?: {
     title: string;
-    cards: InfoCard[];
-    footerLeft?: React.ReactNode;
-    footerRight?: React.ReactNode;
+    badge?: string;
+    content: React.ReactNode;
   };
 
-  updatedAtText?: string;
+  toc?: {
+    title?: string;
+    items: TocItem[];
+  };
+
+  summary?: {
+    title?: string;
+    bullets: SummaryBullet[];
+  };
+
+  sections: SectionItem[];
+
+  controller?: {
+    eyebrow?: string; // ex: "Informações do controlador"
+    cards: [ControllerCard, ControllerCard]; // 2 colunas
+    footer?: React.ReactNode; // ex: ultima atualização + tag
+  };
+
+  updatedAt?: string; // se quiser forçar
 };
 
 function PageBackground({ children }: { children: React.ReactNode }) {
@@ -154,32 +162,19 @@ function TocLink({
   );
 }
 
-function Dot({ color }: { color: "green" | "gold" }) {
-  return (
-    <span
-      className={[
-        "mt-2 h-2 w-2 rounded-full",
-        color === "green" ? "bg-brand-green" : "bg-brand-gold",
-      ].join(" ")}
-    />
-  );
-}
-
 export default function InstitutionalPageTemplate({
   pillLabel,
   title,
   description,
   notice,
-  tocTitle = "Nesta página",
-  tocItems,
-  summaryTitle = "Em resumo",
-  summaryItems = [],
+  toc,
+  summary,
   sections,
-  infoBlock,
-  updatedAtText,
-}: Props) {
-  const updatedAt =
-    updatedAtText ?? new Date().toLocaleDateString("pt-BR");
+  controller,
+  updatedAt,
+}: InstitutionalPageTemplateProps) {
+  const finalUpdatedAt =
+    updatedAt ?? new Date().toLocaleDateString("pt-BR");
 
   return (
     <PageBackground>
@@ -189,8 +184,7 @@ export default function InstitutionalPageTemplate({
         {/* HERO */}
         <section className="pt-10 sm:pt-14">
           <div className="container-page">
-            {/* ⚠️ alinhado com o conteúdo */}
-            <div className="mx-auto max-w-6xl">
+            <div className="mx-auto max-w-5xl">
               <Pill label={pillLabel} />
 
               <h1 className="mt-6 text-3xl font-semibold tracking-tight text-brand-ink sm:text-5xl">
@@ -216,7 +210,7 @@ export default function InstitutionalPageTemplate({
                   </div>
 
                   <div className="mt-2 text-sm text-brand-muted">
-                    {notice.body}
+                    {notice.content}
                   </div>
                 </div>
               )}
@@ -230,33 +224,37 @@ export default function InstitutionalPageTemplate({
         <section className="pb-16">
           <div className="container-page">
             <div className="mx-auto grid max-w-6xl gap-6 lg:grid-cols-[320px_1fr] lg:gap-8">
-              {/* SIDEBAR */}
+              {/* ASIDE */}
               <aside className="lg:sticky lg:top-24 lg:self-start">
-                <div className="rounded-2xl border border-brand-line bg-white/70 p-4 shadow-soft backdrop-blur">
-                  <div className="px-3 py-2 text-xs font-semibold uppercase tracking-wide text-brand-muted">
-                    {tocTitle}
+                {toc && (
+                  <div className="rounded-2xl border border-brand-line bg-white/70 p-4 shadow-soft backdrop-blur">
+                    <div className="px-3 py-2 text-xs font-semibold uppercase tracking-wide text-brand-muted">
+                      {toc.title ?? "Nesta página"}
+                    </div>
+
+                    <nav className="mt-1 space-y-1">
+                      {toc.items.map((item) => (
+                        <TocLink key={item.href} href={item.href}>
+                          {item.label}
+                        </TocLink>
+                      ))}
+                    </nav>
                   </div>
+                )}
 
-                  <nav className="mt-1 space-y-1">
-                    {tocItems.map((item) => (
-                      <TocLink key={item.href} href={item.href}>
-                        {item.label}
-                      </TocLink>
-                    ))}
-                  </nav>
-                </div>
-
-                {summaryItems.length > 0 && (
-                  <div className="mt-4 rounded-2xl border border-brand-line bg-white/70 p-4 shadow-soft backdrop-blur">
+                {summary && (
+                  <div className={`${toc ? "mt-4" : ""} rounded-2xl border border-brand-line bg-white/70 p-4 shadow-soft backdrop-blur`}>
                     <div className="text-xs font-semibold uppercase tracking-wide text-brand-muted">
-                      {summaryTitle}
+                      {summary.title ?? "Em resumo"}
                     </div>
 
                     <ul className="mt-3 space-y-2 text-sm text-brand-muted">
-                      {summaryItems.map((it, idx) => (
-                        <li key={idx} className="flex items-start gap-3">
-                          <Dot color={it.color} />
-                          <span>{it.text}</span>
+                      {summary.bullets.map((b, idx) => (
+                        <li key={`${b.label}-${idx}`} className="flex items-start gap-3">
+                          <span
+                            className={`mt-2 h-2 w-2 rounded-full ${b.dotClassName ?? "bg-brand-green"}`}
+                          />
+                          <span>{b.label}</span>
                         </li>
                       ))}
                     </ul>
@@ -268,30 +266,31 @@ export default function InstitutionalPageTemplate({
               <div className="space-y-4">
                 {sections.map((sec) => (
                   <div key={sec.id} id={sec.id} className="scroll-mt-28">
-                    <MiniCard title={sec.title}>{sec.body}</MiniCard>
+                    <MiniCard title={sec.title}>{sec.content}</MiniCard>
                   </div>
                 ))}
 
-                {infoBlock && (
+                {/* CONTROLADOR (opcional) */}
+                {controller && (
                   <div
-                    id="info"
                     className="scroll-mt-28 rounded-2xl border border-brand-line bg-white/70 p-6 shadow-soft backdrop-blur"
+                    id="controlador"
                   >
                     <div className="text-xs font-semibold uppercase tracking-wide text-brand-muted">
-                      {infoBlock.title}
+                      {controller.eyebrow ?? "Informações do controlador"}
                     </div>
 
                     <div className="mt-4 grid gap-3 sm:grid-cols-2">
-                      {infoBlock.cards.map((card, idx) => (
+                      {controller.cards.map((card) => (
                         <div
-                          key={idx}
+                          key={card.title}
                           className="rounded-2xl border border-brand-line bg-white/80 p-5"
                         >
                           <div className="text-sm font-semibold text-brand-ink">
                             {card.title}
                           </div>
                           <div className="mt-2 text-sm text-brand-muted">
-                            {card.body}
+                            {card.content}
                           </div>
                         </div>
                       ))}
@@ -303,41 +302,31 @@ export default function InstitutionalPageTemplate({
                       id="atualizacao"
                       className="mt-4 flex flex-col gap-1 text-xs text-brand-muted sm:flex-row sm:items-center sm:justify-between"
                     >
-                      <span>Última atualização: {updatedAt}</span>
-                      <span className="text-brand-muted/80">
-                        {infoBlock.footerRight ?? (
-                          <>Documento informativo • sujeito a revisão</>
-                        )}
-                      </span>
+                      <span>Última atualização: {finalUpdatedAt}</span>
+                      {controller.footer ? (
+                        <span className="text-brand-muted/80">{controller.footer}</span>
+                      ) : (
+                        <span className="text-brand-muted/80">
+                          Documento informativo • sujeito a revisão
+                        </span>
+                      )}
                     </div>
-
-                    {/* footerLeft opcional (se quiser usar depois) */}
-                    {infoBlock.footerLeft ? (
-                      <div className="mt-2 text-xs text-brand-muted">
-                        {infoBlock.footerLeft}
-                      </div>
-                    ) : null}
                   </div>
                 )}
 
-                {/* fallback: mostrar update mesmo sem infoBlock */}
-                {!infoBlock && (
-                  <div className="rounded-2xl border border-brand-line bg-white/70 p-5 shadow-soft backdrop-blur">
-                    <div className="text-xs font-semibold uppercase tracking-wide text-brand-muted">
-                      Atualização
-                    </div>
-                    <p className="mt-2 text-sm text-brand-muted">
-                      Última atualização:{" "}
-                      <b className="text-brand-ink">{updatedAt}</b>
-                    </p>
-                    <p className="mt-1 text-xs text-brand-muted/80">
-                      Documento informativo • sujeito a revisão
-                    </p>
+                {/* FALLBACK atualização (se não tiver controlador) */}
+                {!controller && (
+                  <div className="pt-2 text-xs text-brand-muted">
+                    Última atualização: {finalUpdatedAt}
                   </div>
                 )}
 
-                {/* micro detalhe: ajuda a consistência visual */}
-                <div className="hidden">{site.name}</div>
+                {/* Contato rápido padrão (bem discreto) */}
+                <div className="rounded-2xl border border-brand-line bg-white/60 p-5 text-sm text-brand-muted shadow-soft backdrop-blur">
+                  Se tiver qualquer dúvida, fala com a{" "}
+                  <b className="text-brand-ink">{site.name}</b> em{" "}
+                  <b className="text-brand-ink">{site.email}</b>.
+                </div>
               </div>
             </div>
           </div>

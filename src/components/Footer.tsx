@@ -72,12 +72,7 @@ function Icon({
             stroke="currentColor"
             strokeWidth="1.8"
           />
-          <path
-            d="M17.2 6.8h.01"
-            stroke="currentColor"
-            strokeWidth="2.2"
-            strokeLinecap="round"
-          />
+          <path d="M17.2 6.8h.01" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" />
         </svg>
       );
     case "faq":
@@ -89,12 +84,7 @@ function Icon({
             strokeWidth="1.8"
             strokeLinejoin="round"
           />
-          <path
-            d="M11.7 14.5h.01"
-            stroke="currentColor"
-            strokeWidth="2.4"
-            strokeLinecap="round"
-          />
+          <path d="M11.7 14.5h.01" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" />
           <path
             d="M9.8 10a2.2 2.2 0 1 1 3.7 1.6c-.5.5-.9.7-.9 1.6"
             stroke="currentColor"
@@ -358,6 +348,11 @@ export default function Footer() {
 
   const whatsappHref = whatsappLink(site.whatsappMessage);
 
+  // ✅ NOVO: abre o modal de preferências do Cookie Banner
+  const openCookiePrefs = useCallback(() => {
+    window.dispatchEvent(new Event("cookie-consent:open-prefs"));
+  }, []);
+
   return (
     <footer className="border-t border-brand-line bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/80">
       <div className="lg:hidden">
@@ -445,8 +440,7 @@ export default function Footer() {
                         <div className="mt-3 text-sm text-brand-muted">
                           {site.legalName && (
                             <div>
-                              <span className="font-semibold text-brand-ink">Razão social:</span>{" "}
-                              {site.legalName}
+                              <span className="font-semibold text-brand-ink">Razão social:</span> {site.legalName}
                             </div>
                           )}
                           {site.cnpj && (
@@ -461,9 +455,7 @@ export default function Footer() {
                         <div className="mt-3 text-sm text-brand-muted">
                           <div>
                             <span className="font-semibold text-brand-ink">Responsável técnico:</span>{" "}
-                            {site.responsibleName
-                              ? site.responsibleName
-                              : "Contador(a) registrado(a) no CRC"}
+                            {site.responsibleName ? site.responsibleName : "Contador(a) registrado(a) no CRC"}
                           </div>
                           {site.responsibleCRC && (
                             <div>
@@ -552,6 +544,15 @@ export default function Footer() {
                   >
                     Política de privacidade
                   </button>
+
+                  {/* ✅ NOVO */}
+                  <button
+                    type="button"
+                    onClick={openCookiePrefs}
+                    className="text-left font-semibold text-brand-ink hover:underline"
+                  >
+                    Gerenciar cookies
+                  </button>
                 </div>
               </div>
             </details>
@@ -636,8 +637,7 @@ export default function Footer() {
                       <div className="mt-3 text-sm text-brand-muted">
                         {site.legalName && (
                           <div>
-                            <span className="font-semibold text-brand-ink">Razão social:</span>{" "}
-                            {site.legalName}
+                            <span className="font-semibold text-brand-ink">Razão social:</span> {site.legalName}
                           </div>
                         )}
                         {site.cnpj && (
@@ -652,9 +652,7 @@ export default function Footer() {
                       <div className="mt-3 text-sm text-brand-muted">
                         <div>
                           <span className="font-semibold text-brand-ink">Responsável técnico:</span>{" "}
-                          {site.responsibleName
-                            ? site.responsibleName
-                            : "Contador(a) registrado(a) no CRC"}
+                          {site.responsibleName ? site.responsibleName : "Contador(a) registrado(a) no CRC"}
                         </div>
                         {site.responsibleCRC && (
                           <div>
@@ -735,6 +733,15 @@ export default function Footer() {
                   className="text-left text-brand-ink hover:underline"
                 >
                   Política de privacidade
+                </button>
+
+                {/* ✅ NOVO */}
+                <button
+                  type="button"
+                  onClick={openCookiePrefs}
+                  className="text-left text-brand-ink hover:underline"
+                >
+                  Gerenciar cookies
                 </button>
               </div>
             </div>

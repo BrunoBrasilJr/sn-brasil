@@ -24,7 +24,6 @@ function serviceWhatsappMessage(title: string) {
   return map[title] ?? `${base} "${title}".`;
 }
 
-
 function Icon({
   name,
   className = "h-5 w-5",
@@ -190,8 +189,7 @@ export default function ServicosPage() {
               </h1>
 
               <p className="mx-auto mt-4 max-w-2xl text-base text-brand-muted sm:text-lg">
-                Selecione um serviço e clique em <b>Mensagem</b>. A mensagem no WhatsApp já vai pronta, do
-                jeitinho certo.
+                Selecione um serviço e clique em <b>Mensagem</b>. A mensagem no WhatsApp já vai pronta, do jeitinho certo.
               </p>
 
               <div className="mt-7 flex flex-col items-center justify-center gap-3 sm:flex-row">
@@ -252,13 +250,21 @@ export default function ServicosPage() {
               </p>
             </div>
 
+            {/* ✅ ALTERADO SOMENTE AQUI: alinhamento + animação nos cards */}
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
               {services.map((s: any) => {
                 const msg = serviceWhatsappMessage(s.title);
                 const href = buildWhatsappLink(site.whatsappNumber, msg);
 
                 return (
-                  <article key={s.title} className="flex h-full flex-col rounded-2xl border border-brand-line bg-white shadow-soft">
+                  <article
+                    key={s.title}
+                    className={[
+                      "group flex h-full flex-col rounded-2xl border border-brand-line bg-white shadow-soft",
+                      "transition-all duration-200 will-change-transform",
+                      "hover:-translate-y-1 hover:shadow-md",
+                    ].join(" ")}
+                  >
                     <header className="p-6">
                       <div className="flex items-start justify-between gap-3">
                         <h3 className="text-base font-semibold text-brand-ink">{s.title}</h3>
@@ -267,21 +273,28 @@ export default function ServicosPage() {
                           Serviço
                         </span>
                       </div>
-                      <p className="mt-2 text-sm text-brand-muted">{s.desc}</p>
+
+                      {/* trava as descrições pra alinhar o “miolo” */}
+                      <p className="mt-2 min-h-[44px] text-sm leading-relaxed text-brand-muted">{s.desc}</p>
                     </header>
+
                     <div className="h-px w-full bg-brand-line" />
+
                     <div className="flex flex-1 flex-col p-6">
                       <div className="text-xs font-semibold uppercase tracking-wide text-brand-muted">Inclui</div>
 
-                      <ul className="mt-4 space-y-3 text-sm text-brand-muted">
-                        {Array.isArray(s.includes) &&
-                          s.includes.map((item: string) => (
-                            <li key={item} className="flex items-start gap-3">
-                              <span className="mt-1.5 h-2.5 w-2.5 flex-none rounded-full bg-brand-green" />
-                              <span className="leading-relaxed">{item}</span>
-                            </li>
-                          ))}
-                      </ul>
+                      {/* trava a lista pra alinhar o rodapé do card */}
+                      <div className="mt-4 min-h-[156px]">
+                        <ul className="space-y-3 text-sm text-brand-muted">
+                          {Array.isArray(s.includes) &&
+                            s.includes.map((item: string) => (
+                              <li key={item} className="flex items-start gap-3">
+                                <span className="mt-1.5 h-2.5 w-2.5 flex-none rounded-full bg-brand-green" />
+                                <span className="leading-relaxed">{item}</span>
+                              </li>
+                            ))}
+                        </ul>
+                      </div>
 
                       <div className="mt-auto pt-6">
                         <div className="h-px w-full bg-brand-line" />
@@ -295,7 +308,7 @@ export default function ServicosPage() {
                             rel="noreferrer"
                             className="inline-flex items-center justify-center rounded-xl bg-brand-green px-6 py-3 text-sm font-semibold text-white shadow-soft transition hover:bg-brand-green-dark"
                           >
-                            Mensagem <Icon name="arrow" className="ml-2 h-4 w-4" />
+                            Mensagem <Icon name="arrow" className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-0.5" />
                           </a>
                         </div>
                       </div>
@@ -309,6 +322,7 @@ export default function ServicosPage() {
           <SectionDivider />
         </section>
 
+        {/* ✅ SESSÃO DE DÚVIDA: INTACTA, igual ao teu código */}
         <section className="pb-16">
           <div className="container-page">
             <div className="relative mx-auto max-w-3xl text-center">

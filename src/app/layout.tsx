@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "../styles/tailwind.css";
 import { site } from "@/lib/site";
 import SplashGate from "@/components/SplashGate";
+import CookieBanner from "@/components/CookieBanner";
 
 export const metadata: Metadata = {
   title: {
@@ -41,7 +42,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body>
-        <SplashGate>{children}</SplashGate>
+        <SplashGate><CookieBanner></CookieBanner>{children}</SplashGate>
       </body>
     </html>
   );
