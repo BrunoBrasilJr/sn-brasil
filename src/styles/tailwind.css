@@ -12,8 +12,35 @@ body {
 }
 
 body {
-  background: #F6F8FA;
-  color: #0B1220;
+  color: #0b1220;
+  background-color: #f6f8fa;
+  background-image:
+    radial-gradient(900px 500px at 18% -10%, rgba(212, 175, 55, 0.10), transparent 60%),
+    radial-gradient(900px 500px at 92% 0%, rgba(14, 107, 82, 0.08), transparent 55%),
+    radial-gradient(700px 420px at 35% 105%, rgba(11, 18, 32, 0.06), transparent 60%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.90), rgba(246, 248, 250, 0.90));
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='.18'/%3E%3C/svg%3E");
+  opacity: 0.22;
+  mix-blend-mode: multiply;
+}
+
+#__next,
+main,
+header,
+footer {
+  position: relative;
+  z-index: 1;
 }
 
 .container-page {
@@ -23,4 +50,28 @@ body {
   max-width: 72rem;
   padding-left: 1rem;
   padding-right: 1rem;
+}
+
+@layer utilities {
+  .bg-surface {
+    background: rgba(255, 255, 255, 0.72);
+    backdrop-filter: blur(10px);
+  }
+
+  .bg-panel {
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(12px);
+  }
+
+  .ring-soft {
+    box-shadow:
+      0 0 0 1px rgba(229, 231, 235, 0.9),
+      0 16px 40px rgba(2, 8, 23, 0.08);
+  }
+
+  .divider-soft {
+    height: 1px;
+    width: 100%;
+    background: linear-gradient(to right, transparent, rgba(229,231,235,.9), transparent);
+  }
 }

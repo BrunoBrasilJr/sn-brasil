@@ -1,3 +1,12 @@
+export type Service = {
+  title: string;
+  desc: string;
+  icon: string;
+  includes: string[];
+};
+
+export type Partner = { name: string; logoSrc: string };
+
 export const site = {
   name: "SN Brasil Contábil",
 
@@ -5,10 +14,12 @@ export const site = {
   whatsappMessage: "Olá, gostaria de saber mais informações de consultoria contábil!",
 
   email: "snb@snbrasilcontabil.com.br",
-   legalName: "SN BRASIL CONTABIL LTDA",
+  legalName: "SN BRASIL CONTABIL LTDA",
   cnpj: "03.939.348/0001-37",
-  responsibleName: "", // Ex.: "Nome do responsável técnico"
-  responsibleCRC: "", // Ex.: "CRC/SP 000000/O-0"
+
+  responsibleName: "", 
+  responsibleCRC: "", 
+
   businessHours: "Seg a Sex, 08:00 às 18:00",
   responseSLA: "Respondemos em até 2 horas úteis.",
 
@@ -25,6 +36,11 @@ export const site = {
   },
 };
 
+export function whatsappLink(message?: string) {
+  const text = encodeURIComponent(message ?? site.whatsappMessage);
+  return `https://wa.me/${site.whatsappNumber}?text=${text}`;
+}
+
 export const nav = [
   { label: "Início", href: "#inicio" },
   { label: "Serviços", href: "#servicos" },
@@ -34,72 +50,72 @@ export const nav = [
   { label: "Parceiros", href: "#parceiros" },
 ];
 
-export const services = [
+export const services: Service[] = [
   {
     title: "Abertura de empresa",
     desc: "Orientação completa do início ao CNPJ ativo.",
     icon: "briefcase",
-  includes: [
-    "Enquadramento e viabilidade (atividade/regime)",
-    "Checklist de documentos e orientação passo a passo",
-    "Registro e emissão do CNPJ (acompanhamento)",
-    "Configuração inicial para operar com segurança",
-  ],
+    includes: [
+      "Enquadramento e viabilidade (atividade/regime)",
+      "Checklist de documentos e orientação passo a passo",
+      "Registro e emissão do CNPJ (acompanhamento)",
+      "Configuração inicial para operar com segurança",
+    ],
   },
   {
     title: "Regularização",
     desc: "Coloque a casa em ordem e evite dor de cabeça.",
     icon: "shield",
-  includes: [
-    "Diagnóstico do que está pendente",
-    "Plano de ação para normalização",
-    "Orientação sobre riscos e prazos",
-    "Acompanhamento até a regularização",
-  ],
+    includes: [
+      "Diagnóstico do que está pendente",
+      "Plano de ação para normalização",
+      "Orientação sobre riscos e prazos",
+      "Acompanhamento até a regularização",
+    ],
   },
   {
     title: "Encerramento",
     desc: "Encerramento correto, com segurança e transparência.",
     icon: "check",
-  includes: [
-    "Análise do cenário e pendências",
-    "Encerramento com documentação correta",
-    "Baixas e comunicados necessários (quando aplicável)",
-    "Orientação final para evitar problemas futuros",
-  ],
+    includes: [
+      "Análise do cenário e pendências",
+      "Encerramento com documentação correta",
+      "Baixas e comunicados necessários (quando aplicável)",
+      "Orientação final para evitar problemas futuros",
+    ],
   },
   {
     title: "Aposentadoria",
     desc: "Acompanhamento e orientação com clareza.",
     icon: "user",
-  includes: [
-    "Entendimento do seu histórico e objetivo",
-    "Orientação sobre documentação e próximos passos",
-    "Acompanhamento e clareza no processo",
-    "Suporte para evitar indeferimentos por falta de informação",
-  ],
+    includes: [
+      "Entendimento do seu histórico e objetivo",
+      "Orientação sobre documentação e próximos passos",
+      "Acompanhamento e clareza no processo",
+      "Suporte para evitar indeferimentos por falta de informação",
+    ],
   },
   {
     title: "Créditos tributários",
     desc: "Análise de oportunidades e recuperação quando aplicável.",
     icon: "coin",
-  includes: [
-    "Triagem para identificar oportunidades",
-    "Análise técnica do enquadramento (quando aplicável)",
-    "Orientação sobre documentação e comprovações",
-    "Acompanhamento do processo com transparência",
-  ],
+    includes: [
+      "Triagem para identificar oportunidades",
+      "Análise técnica do enquadramento (quando aplicável)",
+      "Orientação sobre documentação e comprovações",
+      "Acompanhamento do processo com transparência",
+    ],
   },
   {
     title: "Certificado digital",
     desc: "Emissão e suporte para o dia a dia da empresa.",
     icon: "key",
-  includes: [
-    "Orientação para escolher o tipo ideal",
-    "Emissão/renovação com suporte",
-    "Configuração básica para uso no dia a dia",
-    "Ajuda rápida em caso de dúvidas",
-  ],
+    includes: [
+      "Orientação para escolher o tipo ideal",
+      "Emissão/renovação com suporte",
+      "Configuração básica para uso no dia a dia",
+      "Ajuda rápida em caso de dúvidas",
+    ],
   },
 ];
 
@@ -131,7 +147,7 @@ export const faqs = [
   },
 ];
 
-export const partners: Array<{ name: string; logoSrc: string }> = [
+export const partners: Partner[] = [
   { name: "JUCESP", logoSrc: "/partners/jucesp.png" },
   { name: "NF-e", logoSrc: "/partners/nfe.png" },
   { name: "Nota Fiscal Paulista", logoSrc: "/partners/nota-fiscal-paulista.png" },

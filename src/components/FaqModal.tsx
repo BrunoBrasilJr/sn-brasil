@@ -38,7 +38,6 @@ export default function FaqModal({ open, onClose }: Props) {
 
   return createPortal(
     <div className="fixed inset-0 z-[2147483647]">
-      {/* overlay */}
       <button
         type="button"
         aria-label="Fechar modal"
@@ -46,7 +45,6 @@ export default function FaqModal({ open, onClose }: Props) {
         onClick={onClose}
       />
 
-      {/* modal */}
       <div className="relative mx-auto flex h-full max-w-3xl items-center px-4">
         <div className="w-full rounded-xl2 border border-brand-line bg-white shadow-soft">
           <div className="flex items-center justify-between border-b border-brand-line px-5 py-4">

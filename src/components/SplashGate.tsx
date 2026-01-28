@@ -29,13 +29,12 @@ export default function SplashGate({ children }: { children: ReactNode }) {
       try {
         sessionStorage.setItem(STORAGE_KEY, "1");
       } catch {
-        // ignore
+
       }
       setState("hidden");
     }, 520);
   }, []);
 
-  // ✅ evita 1-frame do site aparecer antes da splash
   if (!ready) {
     return (
       <>

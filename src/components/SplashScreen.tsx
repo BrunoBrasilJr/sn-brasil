@@ -19,7 +19,6 @@ export default function SplashScreen({
   const [phase, setPhase] = useState<SplashPhase>("redirecting");
   const [progress, setProgress] = useState(0);
 
-  // ✅ novo: controla o fade-in da splash ao montar
   const [entered, setEntered] = useState(false);
 
   const message = useMemo(() => {
@@ -29,7 +28,6 @@ export default function SplashScreen({
   }, [phase]);
 
   useEffect(() => {
-    // ✅ garante que começa invisível e entra no próximo frame (fade-in)
     setEntered(false);
     const raf = requestAnimationFrame(() => setEntered(true));
     return () => cancelAnimationFrame(raf);

@@ -21,7 +21,6 @@ function writeStore(store: Store) {
   try {
     sessionStorage.setItem(STORAGE_KEY, JSON.stringify(store));
   } catch {
-    // ignore
   }
 }
 
@@ -35,7 +34,6 @@ export default function ScrollKeeper() {
   const rafLock = useRef(false);
   const lastSaveAt = useRef(0);
 
-  // salvar scroll enquanto rola
   useEffect(() => {
     const onScroll = () => {
       const now = Date.now();
@@ -58,7 +56,6 @@ export default function ScrollKeeper() {
     return () => window.removeEventListener("scroll", onScroll);
   }, [pathname]);
 
-  // restaurar scroll no F5 / troca de rota
   useEffect(() => {
     const key = getKey(pathname);
     const store = readStore();
@@ -73,7 +70,6 @@ export default function ScrollKeeper() {
     return () => window.clearTimeout(t);
   }, [pathname]);
 
-  // tratar mudança só de hash
   useEffect(() => {
     const onHashChange = () => {
       const key = getKey(pathname);

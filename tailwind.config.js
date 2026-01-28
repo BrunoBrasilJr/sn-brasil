@@ -24,9 +24,13 @@ module.exports = {
           line: "#E5E7EB",
         },
       },
+
       boxShadow: {
-        soft: "0 12px 30px rgba(2, 8, 23, 0.08)",
+        soft: "0 14px 34px rgba(2, 8, 23, 0.08)",
+        card: "0 10px 24px rgba(2, 8, 23, 0.07)",
+        lift: "0 18px 46px rgba(2, 8, 23, 0.10)",
       },
+
       borderRadius: {
         xl2: "1.25rem",
       },

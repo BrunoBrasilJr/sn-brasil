@@ -1,15 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import { faqs, site } from "@/lib/site";
+import { faqs, site, whatsappLink } from "@/lib/site";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { createPortal } from "react-dom";
-
-function buildWhatsappLink(number: string, message: string) {
-  const text = encodeURIComponent(message);
-  return `https://wa.me/${number}?text=${text}`;
-}
 
 function Icon({
   name,
@@ -21,7 +16,7 @@ function Icon({
   switch (name) {
     case "mail":
       return (
-        <svg className={className} viewBox="0 0 24 24" fill="none">
+        <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
           <path
             d="M4 7.5A2.5 2.5 0 0 1 6.5 5h11A2.5 2.5 0 0 1 20 7.5v9A2.5 2.5 0 0 1 17.5 19h-11A2.5 2.5 0 0 1 4 16.5v-9Z"
             stroke="currentColor"
@@ -38,7 +33,7 @@ function Icon({
       );
     case "phone":
       return (
-        <svg className={className} viewBox="0 0 24 24" fill="none">
+        <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
           <path
             d="M8.5 5.5c.3-1 1.4-1.6 2.4-1.3l1.6.5c.8.2 1.3 1 1.2 1.8l-.3 1.8c-.1.7.2 1.4.8 1.8l1.4.9c.6.4 1.4.4 2-.1l1.5-1.1c.7-.5 1.7-.4 2.2.3l.8 1.2c.6.9.4 2.1-.4 2.7-1.2.9-2.7 1.5-4.3 1.5-6.4 0-11.7-5.3-11.7-11.7 0-1.6.5-3.1 1.5-4.3.6-.8 1.8-1 2.7-.4l1.2.8c.7.5.8 1.5.3 2.2L9 6.8c-.5.6-.5 1.4-.1 2l.9 1.4c.4.6 1.1.9 1.8.8l1.8-.3c.8-.1 1.6.4 1.8 1.2l.5 1.6c.3 1-.3 2.1-1.3 2.4"
             stroke="currentColor"
@@ -50,7 +45,7 @@ function Icon({
       );
     case "pin":
       return (
-        <svg className={className} viewBox="0 0 24 24" fill="none">
+        <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
           <path
             d="M12 21s7-4.5 7-11a7 7 0 1 0-14 0c0 6.5 7 11 7 11Z"
             stroke="currentColor"
@@ -66,7 +61,7 @@ function Icon({
       );
     case "instagram":
       return (
-        <svg className={className} viewBox="0 0 24 24" fill="none">
+        <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
           <path
             d="M7.5 3.8h9A3.7 3.7 0 0 1 20.2 7.5v9a3.7 3.7 0 0 1-3.7 3.7h-9A3.7 3.7 0 0 1 3.8 16.5v-9A3.7 3.7 0 0 1 7.5 3.8Z"
             stroke="currentColor"
@@ -87,7 +82,7 @@ function Icon({
       );
     case "faq":
       return (
-        <svg className={className} viewBox="0 0 24 24" fill="none">
+        <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
           <path
             d="M4.5 5.5h15v10.2a3 3 0 0 1-3 3H10l-4.5 2.6V5.5Z"
             stroke="currentColor"
@@ -110,7 +105,7 @@ function Icon({
       );
     case "shield":
       return (
-        <svg className={className} viewBox="0 0 24 24" fill="none">
+        <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
           <path
             d="M12 3.5 19 6.8v6.2c0 5-3.2 8.1-7 9.5-3.8-1.4-7-4.5-7-9.5V6.8L12 3.5Z"
             stroke="currentColor"
@@ -121,7 +116,7 @@ function Icon({
       );
     case "arrow":
       return (
-        <svg className={className} viewBox="0 0 24 24" fill="none">
+        <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
           <path
             d="M9 18l6-6-6-6"
             stroke="currentColor"
@@ -134,9 +129,9 @@ function Icon({
   }
 }
 
-/**
- * ✅ Modal FAQ com fade + slide de baixo pra cima (mais devagar)
- */
+const MODAL_ANIM_MS = 420;
+const MODAL_CLOSE_MS = 200;
+
 function FaqModal({ open, onClose }: { open: boolean; onClose: () => void }) {
   const [mounted, setMounted] = useState(false);
 
@@ -149,24 +144,28 @@ function FaqModal({ open, onClose }: { open: boolean; onClose: () => void }) {
   useEffect(() => {
     if (!mounted) return;
 
+    let tEnter: number | undefined;
+    let tClose: number | undefined;
+
     if (open) {
       setRendered(true);
       setClosing(false);
 
       setEntered(false);
-      setTimeout(() => setEntered(true), 50);
-      return;
-    }
-
-    if (rendered) {
+      tEnter = window.setTimeout(() => setEntered(true), 50);
+    } else if (rendered) {
       setClosing(true);
-      const t = window.setTimeout(() => {
+      tClose = window.setTimeout(() => {
         setRendered(false);
         setClosing(false);
         setEntered(false);
-      }, 200);
-      return () => window.clearTimeout(t);
+      }, MODAL_CLOSE_MS);
     }
+
+    return () => {
+      if (tEnter) window.clearTimeout(tEnter);
+      if (tClose) window.clearTimeout(tClose);
+    };
   }, [open, mounted, rendered]);
 
   useEffect(() => {
@@ -181,8 +180,7 @@ function FaqModal({ open, onClose }: { open: boolean; onClose: () => void }) {
     const prevOverflow = body.style.overflow;
     const prevPaddingRight = body.style.paddingRight;
 
-    const scrollbarWidth =
-      window.innerWidth - document.documentElement.clientWidth;
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
 
     body.style.overflow = "hidden";
     if (scrollbarWidth > 0) body.style.paddingRight = `${scrollbarWidth}px`;
@@ -202,7 +200,7 @@ function FaqModal({ open, onClose }: { open: boolean; onClose: () => void }) {
     <div
       className={[
         "fixed inset-0 z-[2147483647] flex items-center justify-center",
-        "transition-opacity duration-[420ms] ease-out",
+        `transition-opacity duration-[${MODAL_ANIM_MS}ms] ease-out`,
         visible ? "opacity-100" : "opacity-0",
       ].join(" ")}
       role="dialog"
@@ -214,7 +212,7 @@ function FaqModal({ open, onClose }: { open: boolean; onClose: () => void }) {
         onClick={onClose}
         className={[
           "absolute inset-0 bg-black/40 backdrop-blur-sm",
-          "transition-opacity duration-[420ms] ease-out",
+          `transition-opacity duration-[${MODAL_ANIM_MS}ms] ease-out`,
           visible ? "opacity-100" : "opacity-0",
         ].join(" ")}
         aria-label="Fechar FAQ"
@@ -223,7 +221,7 @@ function FaqModal({ open, onClose }: { open: boolean; onClose: () => void }) {
       <div
         className={[
           "relative w-[92vw] max-w-2xl rounded-2xl border border-brand-line bg-white shadow-soft",
-          "transition-[opacity,transform] duration-[420ms] ease-out will-change-transform",
+          `transition-[opacity,transform] duration-[${MODAL_ANIM_MS}ms] ease-out will-change-transform`,
           visible ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0",
         ].join(" ")}
       >
@@ -233,16 +231,13 @@ function FaqModal({ open, onClose }: { open: boolean; onClose: () => void }) {
               <Icon name="faq" />
             </div>
             <div>
-              <div className="text-sm font-semibold text-brand-ink">
-                Perguntas frequentes
-              </div>
-              <div className="text-xs text-brand-muted">
-                Respostas rápidas e objetivas
-              </div>
+              <div className="text-sm font-semibold text-brand-ink">Perguntas frequentes</div>
+              <div className="text-xs text-brand-muted">Respostas rápidas e objetivas</div>
             </div>
           </div>
 
           <button
+            type="button"
             onClick={onClose}
             className="rounded-xl border border-brand-line bg-white px-3 py-2 text-sm font-semibold text-brand-ink hover:bg-brand-bg"
           >
@@ -253,14 +248,11 @@ function FaqModal({ open, onClose }: { open: boolean; onClose: () => void }) {
         <div className="max-h-[70vh] overflow-auto p-5">
           <div className="space-y-3">
             {faqs.map((f) => (
-              <details
-                key={f.q}
-                className="group rounded-xl border border-brand-line bg-brand-bg p-4"
-              >
+              <details key={f.q} className="group rounded-xl border border-brand-line bg-brand-bg p-4">
                 <summary className="cursor-pointer list-none text-sm font-semibold text-brand-ink">
                   <div className="flex items-start justify-between gap-3">
                     <span>{f.q}</span>
-                    <span className="mt-0.5 text-brand-muted transition group-open:rotate-90">
+                    <span className="mt-0.5 text-brand-muted transition group-open:rotate-90" aria-hidden="true">
                       <Icon name="arrow" />
                     </span>
                   </div>
@@ -279,7 +271,7 @@ function FaqModal({ open, onClose }: { open: boolean; onClose: () => void }) {
             </div>
             <a
               className="inline-flex items-center justify-center rounded-xl bg-brand-green px-4 py-2 text-sm font-semibold text-white hover:bg-brand-green-dark"
-              href={buildWhatsappLink(site.whatsappNumber, site.whatsappMessage)}
+              href={whatsappLink(site.whatsappMessage)}
               target="_blank"
               rel="noreferrer"
             >
@@ -308,7 +300,7 @@ export default function Footer() {
     } catch {
       return site.instagram;
     }
-  }, []);
+  }, [site.instagram]);
 
   const smoothScrollToId = useCallback((id: string) => {
     const el = document.getElementById(id);
@@ -364,33 +356,22 @@ export default function Footer() {
     return () => window.clearTimeout(t);
   }, [pathname, smoothScrollToId]);
 
-  const whatsappHref = buildWhatsappLink(site.whatsappNumber, site.whatsappMessage);
+  const whatsappHref = whatsappLink(site.whatsappMessage);
 
   return (
-    <footer className="border-t border-brand-line bg-white">
-      {/* ===================== MOBILE (novo) ===================== */}
+    <footer className="border-t border-brand-line bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/80">
       <div className="lg:hidden">
-        <div className="container-page py-10">
-          {/* Brand + ações */}
-          <div className="rounded-[1.5rem] border border-brand-line bg-brand-bg p-5">
-            <div className="rounded-[1.25rem] bg-white p-5 shadow-soft">
+        <div className="container-page py-8">
+          <div className="rounded-[1.5rem] border border-brand-line bg-brand-bg p-4">
+            <div className="rounded-[1.25rem] bg-white p-4 shadow-soft">
               <div className="flex items-center gap-3">
                 <div className="relative h-12 w-12 overflow-hidden rounded-2xl bg-white">
-                  <Image
-                    src={site.logo.src}
-                    alt={site.logo.alt}
-                    fill
-                    className="object-contain"
-                  />
+                  <Image src={site.logo.src} alt={site.logo.alt} fill className="object-contain" />
                 </div>
 
                 <div className="min-w-0 leading-tight">
-                  <div className="truncate text-sm font-semibold text-brand-ink">
-                    {site.name}
-                  </div>
-                  <div className="truncate text-xs text-brand-muted">
-                    {site.cityState}
-                  </div>
+                  <div className="truncate text-sm font-semibold text-brand-ink">{site.name}</div>
+                  <div className="truncate text-xs text-brand-muted">{site.cityState}</div>
                 </div>
               </div>
 
@@ -398,7 +379,7 @@ export default function Footer() {
                 Atendimento próximo, organização e segurança para o seu negócio.
               </p>
 
-              <div className="mt-4 grid grid-cols-2 gap-2">
+              <div className="mt-3 grid grid-cols-2 gap-2">
                 <a
                   href={whatsappHref}
                   target="_blank"
@@ -409,6 +390,7 @@ export default function Footer() {
                 </a>
 
                 <button
+                  type="button"
                   onClick={() => setFaqOpen(true)}
                   className="inline-flex items-center justify-center gap-2 rounded-xl border border-brand-line bg-brand-bg px-4 py-3 text-sm font-semibold text-brand-ink shadow-soft transition hover:bg-white"
                 >
@@ -419,15 +401,11 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Accordions */}
           <div className="mt-4 space-y-3">
-            {/* Contato */}
             <details className="group rounded-[1.25rem] border border-brand-line bg-white shadow-soft">
               <summary className="flex cursor-pointer list-none items-center justify-between gap-3 px-5 py-4">
-                <span className="text-sm font-semibold text-brand-ink">
-                  Contato
-                </span>
-                <span className="text-brand-muted transition group-open:rotate-90">
+                <span className="text-sm font-semibold text-brand-ink">Contato</span>
+                <span className="text-brand-muted transition group-open:rotate-90" aria-hidden="true">
                   <Icon name="arrow" />
                 </span>
               </summary>
@@ -435,47 +413,33 @@ export default function Footer() {
               <div className="border-t border-brand-line px-5 py-4">
                 <div className="space-y-4 text-sm text-brand-muted">
                   <div className="flex gap-3">
-                    <span className="mt-0.5 text-brand-ink">
+                    <span className="mt-0.5 text-brand-ink" aria-hidden="true">
                       <Icon name="mail" />
                     </span>
                     <div>
-                      <div className="text-xs uppercase tracking-wide text-brand-muted">
-                        Email
-                      </div>
-                      <div className="font-semibold text-brand-ink">
-                        {site.email}
-                      </div>
+                      <div className="text-xs uppercase tracking-wide text-brand-muted">Email</div>
+                      <div className="font-semibold text-brand-ink">{site.email}</div>
                     </div>
                   </div>
 
                   <div className="flex gap-3">
-                    <span className="mt-0.5 text-brand-ink">
+                    <span className="mt-0.5 text-brand-ink" aria-hidden="true">
                       <Icon name="phone" />
                     </span>
                     <div>
-                      <div className="text-xs uppercase tracking-wide text-brand-muted">
-                        Telefones
-                      </div>
-                      <div className="font-semibold text-brand-ink">
-                        {site.phones.join(" • ")}
-                      </div>
+                      <div className="text-xs uppercase tracking-wide text-brand-muted">Telefones</div>
+                      <div className="font-semibold text-brand-ink">{site.phones.join(" • ")}</div>
                     </div>
                   </div>
 
                   <div className="flex gap-3">
-                    <span className="mt-0.5 text-brand-ink">
+                    <span className="mt-0.5 text-brand-ink" aria-hidden="true">
                       <Icon name="pin" />
                     </span>
                     <div>
-                      <div className="text-xs uppercase tracking-wide text-brand-muted">
-                        Endereço
-                      </div>
-                      <div className="font-semibold text-brand-ink">
-                        {site.address}
-                      </div>
-                      <div className="text-sm text-brand-muted">
-                        {site.cityState}
-                      </div>
+                      <div className="text-xs uppercase tracking-wide text-brand-muted">Endereço</div>
+                      <div className="font-semibold text-brand-ink">{site.address}</div>
+                      <div className="text-sm text-brand-muted">{site.cityState}</div>
 
                       {(site.legalName || site.cnpj) && (
                         <div className="mt-3 text-sm text-brand-muted">
@@ -497,7 +461,9 @@ export default function Footer() {
                         <div className="mt-3 text-sm text-brand-muted">
                           <div>
                             <span className="font-semibold text-brand-ink">Responsável técnico:</span>{" "}
-                            {site.responsibleName ? site.responsibleName : "Contador(a) registrado(a) no CRC"}
+                            {site.responsibleName
+                              ? site.responsibleName
+                              : "Contador(a) registrado(a) no CRC"}
                           </div>
                           {site.responsibleCRC && (
                             <div>
@@ -510,13 +476,11 @@ export default function Footer() {
                   </div>
 
                   <div className="flex gap-3">
-                    <span className="mt-0.5 text-brand-ink">
+                    <span className="mt-0.5 text-brand-ink" aria-hidden="true">
                       <Icon name="instagram" />
                     </span>
                     <div>
-                      <div className="text-xs uppercase tracking-wide text-brand-muted">
-                        Instagram
-                      </div>
+                      <div className="text-xs uppercase tracking-wide text-brand-muted">Instagram</div>
                       <a
                         className="font-semibold text-brand-ink underline-offset-4 hover:underline"
                         href={site.instagram}
@@ -531,13 +495,10 @@ export default function Footer() {
               </div>
             </details>
 
-            {/* Links */}
             <details className="group rounded-[1.25rem] border border-brand-line bg-white shadow-soft">
               <summary className="flex cursor-pointer list-none items-center justify-between gap-3 px-5 py-4">
-                <span className="text-sm font-semibold text-brand-ink">
-                  Links
-                </span>
-                <span className="text-brand-muted transition group-open:rotate-90">
+                <span className="text-sm font-semibold text-brand-ink">Links</span>
+                <span className="text-brand-muted transition group-open:rotate-90" aria-hidden="true">
                   <Icon name="arrow" />
                 </span>
               </summary>
@@ -577,6 +538,7 @@ export default function Footer() {
                   </button>
 
                   <button
+                    type="button"
                     onClick={() => setFaqOpen(true)}
                     className="text-left font-semibold text-brand-ink hover:underline"
                   >
@@ -595,48 +557,37 @@ export default function Footer() {
             </details>
           </div>
 
-          {/* Base */}
-          <div className="mt-6 border-t border-brand-line pt-5 text-xs text-brand-muted">
+          <div className="mt-6 border-t border-brand-line/70 pt-5 text-xs text-brand-muted">
             <div>
-              © {new Date().getFullYear()} {site.name}. Todos os direitos
-              reservados.
+              © {new Date().getFullYear()} {site.name}. Todos os direitos reservados.
             </div>
             <div className="mt-2 flex items-center gap-2">
-              <span className="h-2 w-2 rounded-full bg-brand-gold" />
+              <span className="h-2 w-2 rounded-full bg-brand-gold" aria-hidden="true" />
               Site institucional • {site.cityState}
             </div>
           </div>
         </div>
       </div>
 
-      {/* ===================== DESKTOP (SEU ORIGINAL, INTACTO) ===================== */}
       <div className="hidden lg:block">
-        <div className="container-page py-12">
+        <div className="container-page py-9">
           <div className="grid gap-10 lg:grid-cols-12">
-            {/* Brand */}
             <div className="lg:col-span-4">
               <div className="flex items-center gap-3">
                 <div className="relative h-11 w-11 overflow-hidden rounded-2xl bg-white">
-                  <Image
-                    src={site.logo.src}
-                    alt={site.logo.alt}
-                    fill
-                    className="object-contain"
-                  />
+                  <Image src={site.logo.src} alt={site.logo.alt} fill className="object-contain" />
                 </div>
                 <div>
-                  <div className="text-sm font-semibold text-brand-ink">
-                    {site.name}
-                  </div>
+                  <div className="text-sm font-semibold text-brand-ink">{site.name}</div>
                   <div className="text-xs text-brand-muted">{site.cityState}</div>
                 </div>
               </div>
 
-              <p className="mt-4 max-w-sm text-sm text-brand-muted">
+              <p className="mt-3 max-w-sm text-sm text-brand-muted">
                 Atendimento próximo, organização e segurança para o seu negócio.
               </p>
 
-              <div className="mt-5 flex flex-wrap gap-3">
+              <div className="mt-4 flex flex-wrap gap-3">
                 <a
                   href={whatsappHref}
                   target="_blank"
@@ -648,45 +599,36 @@ export default function Footer() {
               </div>
             </div>
 
-            {/* Contact */}
             <div className="lg:col-span-5">
               <div className="text-sm font-semibold text-brand-ink">Contato</div>
 
-              <div className="mt-4 space-y-3 text-sm text-brand-muted">
+              <div className="mt-3 space-y-3 text-sm text-brand-muted">
                 <div className="flex gap-3">
-                  <span className="mt-0.5 text-brand-ink">
+                  <span className="mt-0.5 text-brand-ink" aria-hidden="true">
                     <Icon name="mail" />
                   </span>
                   <div>
-                    <div className="text-xs uppercase tracking-wide text-brand-muted">
-                      Email
-                    </div>
+                    <div className="text-xs uppercase tracking-wide text-brand-muted">Email</div>
                     <div className="font-semibold text-brand-ink">{site.email}</div>
                   </div>
                 </div>
 
                 <div className="flex gap-3">
-                  <span className="mt-0.5 text-brand-ink">
+                  <span className="mt-0.5 text-brand-ink" aria-hidden="true">
                     <Icon name="phone" />
                   </span>
                   <div>
-                    <div className="text-xs uppercase tracking-wide text-brand-muted">
-                      Telefones
-                    </div>
-                    <div className="font-semibold text-brand-ink">
-                      {site.phones.join(" • ")}
-                    </div>
+                    <div className="text-xs uppercase tracking-wide text-brand-muted">Telefones</div>
+                    <div className="font-semibold text-brand-ink">{site.phones.join(" • ")}</div>
                   </div>
                 </div>
 
                 <div className="flex gap-3">
-                  <span className="mt-0.5 text-brand-ink">
+                  <span className="mt-0.5 text-brand-ink" aria-hidden="true">
                     <Icon name="pin" />
                   </span>
                   <div>
-                    <div className="text-xs uppercase tracking-wide text-brand-muted">
-                      Endereço
-                    </div>
+                    <div className="text-xs uppercase tracking-wide text-brand-muted">Endereço</div>
                     <div className="font-semibold text-brand-ink">{site.address}</div>
                     <div className="text-sm text-brand-muted">{site.cityState}</div>
 
@@ -710,7 +652,9 @@ export default function Footer() {
                       <div className="mt-3 text-sm text-brand-muted">
                         <div>
                           <span className="font-semibold text-brand-ink">Responsável técnico:</span>{" "}
-                          {site.responsibleName ? site.responsibleName : "Contador(a) registrado(a) no CRC"}
+                          {site.responsibleName
+                            ? site.responsibleName
+                            : "Contador(a) registrado(a) no CRC"}
                         </div>
                         {site.responsibleCRC && (
                           <div>
@@ -723,13 +667,11 @@ export default function Footer() {
                 </div>
 
                 <div className="flex gap-3">
-                  <span className="mt-0.5 text-brand-ink">
+                  <span className="mt-0.5 text-brand-ink" aria-hidden="true">
                     <Icon name="instagram" />
                   </span>
                   <div>
-                    <div className="text-xs uppercase tracking-wide text-brand-muted">
-                      Instagram
-                    </div>
+                    <div className="text-xs uppercase tracking-wide text-brand-muted">Instagram</div>
                     <a
                       className="font-semibold text-brand-ink underline-offset-4 hover:underline"
                       href={site.instagram}
@@ -743,11 +685,10 @@ export default function Footer() {
               </div>
             </div>
 
-            {/* Links */}
             <div className="lg:col-span-3">
               <div className="text-sm font-semibold text-brand-ink">Links</div>
 
-              <div className="mt-4 grid gap-2 text-sm">
+              <div className="mt-3 grid gap-2 text-sm">
                 <button
                   type="button"
                   onClick={() => goToSection("servicos")}
@@ -781,6 +722,7 @@ export default function Footer() {
                 </button>
 
                 <button
+                  type="button"
                   onClick={() => setFaqOpen(true)}
                   className="text-left text-brand-ink hover:underline"
                 >
@@ -798,13 +740,12 @@ export default function Footer() {
             </div>
           </div>
 
-          <div className="mt-10 flex flex-col gap-3 border-t border-brand-line pt-6 text-xs text-brand-muted sm:flex-row sm:items-center sm:justify-between">
+          <div className="mt-8 flex flex-col gap-3 border-t border-brand-line/70 pt-5 text-xs text-brand-muted sm:flex-row sm:items-center sm:justify-between">
             <div>
-              © {new Date().getFullYear()} {site.name}. Todos os direitos
-              reservados.
+              © {new Date().getFullYear()} {site.name}. Todos os direitos reservados.
             </div>
             <div className="flex items-center gap-2">
-              <span className="h-2 w-2 rounded-full bg-brand-gold" />
+              <span className="h-2 w-2 rounded-full bg-brand-gold" aria-hidden="true" />
               Site institucional • {site.cityState}
             </div>
           </div>

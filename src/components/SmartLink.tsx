@@ -30,16 +30,13 @@ export default function SmartLink({
   function onClick(e: React.MouseEvent<HTMLAnchorElement>) {
     if (!href) return;
 
-    // Links externos seguem normal
     if (isExternal(href)) return;
 
-    // Links para âncora (#secao)
     if (href.startsWith("#")) {
       e.preventDefault();
 
       const id = href.slice(1);
 
-      // Se estiver na HOME, rola suave direto
       if (pathname === "/") {
         const el = document.getElementById(id);
         if (el) {
@@ -48,17 +45,13 @@ export default function SmartLink({
         return;
       }
 
-      // Se estiver em outra página, marca o destino e volta pra HOME
       try {
         sessionStorage.setItem(PENDING_HASH_KEY, id);
       } catch {}
 
-      router.push("/"); // vai pra home sem hash (pra não brigar com o F5)
+      router.push("/"); 
       return;
     }
-
-    // Links internos comuns (ex: /politica-de-privacidade)
-    // deixa o Next navegar
   }
 
   return (
