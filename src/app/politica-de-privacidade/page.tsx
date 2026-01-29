@@ -8,8 +8,9 @@ export default function PoliticaDePrivacidadePage() {
       title="Política de Privacidade"
       description={
         <>
-          Esta Política descreve como a <b>{site.name}</b> coleta, usa e protege
-          dados pessoais ao utilizar este site e seus canais de atendimento.
+          Esta Política explica, de forma simples, como a <b>{site.name}</b>{" "}
+          coleta, usa e protege dados pessoais ao utilizar este site e seus
+          canais de atendimento.
         </>
       }
       notice={{
@@ -17,9 +18,9 @@ export default function PoliticaDePrivacidadePage() {
         badge: "Recomenda-se revisão jurídica",
         content: (
           <>
-            Este texto pode ser ajustado para refletir práticas específicas da
-            empresa e recomenda-se revisão com um profissional responsável antes
-            da publicação oficial.
+            Esta política foi criada como base e pode ser ajustada para refletir
+            as práticas específicas da empresa. Recomenda-se revisão com um
+            profissional responsável antes da publicação oficial.
           </>
         ),
       }}
@@ -42,7 +43,7 @@ export default function PoliticaDePrivacidadePage() {
         bullets: [
           {
             label:
-              "Coletamos apenas o necessário para atendimento, comunicação e melhoria da experiência.",
+              "Coletamos apenas o necessário para atender você, comunicar quando solicitado e melhorar a experiência no site.",
             dotClassName: "bg-brand-green",
           },
           {
@@ -64,7 +65,7 @@ export default function PoliticaDePrivacidadePage() {
           content: (
             <>
               <p>
-                Para facilitar a leitura, usamos alguns termos comuns nesta
+                Para facilitar a leitura, aqui vão alguns termos comuns nesta
                 Política:
               </p>
               <ul className="mt-3 list-disc space-y-2 pl-5">
@@ -93,8 +94,9 @@ export default function PoliticaDePrivacidadePage() {
           content: (
             <>
               <p>
-                Podemos coletar dados fornecidos diretamente por você e dados
-                coletados automaticamente durante o uso do site.
+                Coletamos dados de duas formas: quando você nos informa (por
+                exemplo, ao entrar em contato) e quando seu navegador envia
+                informações técnicas durante a navegação.
               </p>
 
               <div className="mt-4 space-y-4">
@@ -157,7 +159,7 @@ export default function PoliticaDePrivacidadePage() {
             <>
               <p>
                 O tratamento de dados pessoais ocorre com base em uma ou mais
-                hipóteses legais, como:
+                hipóteses legais previstas na LGPD, como:
               </p>
               <ul className="mt-3 list-disc space-y-2 pl-5">
                 <li>Execução de contrato ou de procedimentos preliminares</li>
@@ -176,8 +178,8 @@ export default function PoliticaDePrivacidadePage() {
               <p>
                 Podemos compartilhar dados com fornecedores que ajudam a operar
                 este site e prestar serviços (ex.: hospedagem, analytics,
-                atendimento), sempre com o mínimo necessário e observando
-                segurança e confidencialidade.
+                atendimento). Isso é feito com o mínimo necessário e com
+                compromisso de segurança e confidencialidade.
               </p>
               <p className="mt-3">
                 Também podemos compartilhar dados quando exigido por lei,
@@ -194,12 +196,13 @@ export default function PoliticaDePrivacidadePage() {
             <>
               <p>
                 Cookies são pequenos arquivos armazenados no seu dispositivo
-                para melhorar a navegação, entender uso do site e personalizar
-                conteúdo.
+                para melhorar a navegação, entender como o site é utilizado e,
+                quando aplicável, personalizar conteúdo.
               </p>
               <ul className="mt-3 list-disc space-y-2 pl-5">
                 <li>
-                  <b>Necessários</b>: essenciais para funcionamento básico
+                  <b>Necessários</b>: essenciais para funcionamento básico do
+                  site
                 </li>
                 <li>
                   <b>Analíticos</b>: ajudam a entender como o site é utilizado
@@ -266,8 +269,9 @@ export default function PoliticaDePrivacidadePage() {
                 </li>
               </ul>
               <p className="mt-3">
-                Podemos solicitar informações adicionais para confirmar sua
-                identidade antes de atender determinadas solicitações.
+                Para sua segurança, podemos solicitar informações adicionais
+                para confirmar sua identidade antes de atender determinadas
+                solicitações.
               </p>
             </>
           ),

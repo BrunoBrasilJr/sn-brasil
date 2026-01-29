@@ -327,7 +327,7 @@ export default function CookieBanner() {
                   <Pill label="Cookies" />
 
                   <p className="mt-3 text-sm leading-relaxed text-brand-muted sm:text-[15px]">
-                    Usamos cookies <b className="text-brand-ink">necessários</b> para o site funcionar e, com sua permissão,
+                    Usamos cookies <b className="text-brand-ink">necessários</b> para o site funcionar e, se você permitir,
                     cookies de <b className="text-brand-ink">análise</b> e{" "}
                     <span className="whitespace-nowrap">
                       <b className="text-brand-ink">marketing</b>.
@@ -335,7 +335,7 @@ export default function CookieBanner() {
                   </p>
 
                   <p className="mt-2 text-xs leading-relaxed text-brand-muted/90">
-                    Você pode recusar, aceitar tudo ou configurar suas preferências.
+                    Você pode recusar, aceitar tudo ou ajustar suas preferências agora.
                   </p>
 
                   {DEBUG_ALWAYS_SHOW && (
@@ -351,7 +351,7 @@ export default function CookieBanner() {
                     onClick={() => setOpenPrefs(true)}
                     className="inline-flex h-12 w-full items-center justify-center rounded-xl border border-brand-line bg-white px-5 text-sm font-semibold text-brand-ink shadow-soft transition hover:bg-brand-bg sm:w-auto"
                   >
-                    Configurar
+                    Preferências
                   </button>
 
                   <button
@@ -401,7 +401,7 @@ export default function CookieBanner() {
                 <h3 className="mt-3 text-lg font-semibold text-brand-ink">Preferências de cookies</h3>
 
                 <p className="mt-1 text-sm text-brand-muted">
-                  Controle quais cookies opcionais podem ser usados.
+                  Você escolhe quais cookies opcionais podem ser usados.
                 </p>
               </div>
 
@@ -461,8 +461,8 @@ export default function CookieBanner() {
             <div className="mt-4 h-px w-full bg-brand-line" />
 
             <p className="mt-4 text-xs leading-relaxed text-brand-muted">
-              Você pode alterar essa escolha no futuro adicionando um botão de “Gerenciar cookies” no rodapé
-              (ou limpando o armazenamento do navegador).
+              Você pode alterar essa escolha quando quiser: basta abrir novamente as preferências de cookies
+              (ou limpar os dados do navegador).
             </p>
           </div>
         </div>

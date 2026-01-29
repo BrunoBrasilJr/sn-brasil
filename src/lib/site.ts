@@ -11,14 +11,15 @@ export const site = {
   name: "SN Brasil Contábil",
 
   whatsappNumber: "5511994275418",
-  whatsappMessage: "Olá, gostaria de saber mais informações de consultoria contábil!",
+  whatsappMessage:
+    "Olá! Quero uma orientação sobre contabilidade e entender qual serviço faz mais sentido para minha empresa.",
 
   email: "snb@snbrasilcontabil.com.br",
   legalName: "SN BRASIL CONTABIL LTDA",
   cnpj: "03.939.348/0001-37",
 
-  responsibleName: "", 
-  responsibleCRC: "", 
+  responsibleName: "",
+  responsibleCRC: "",
 
   businessHours: "Seg a Sex, 08:00 às 18:00",
   responseSLA: "Respondemos em até 2 horas úteis.",
@@ -53,7 +54,7 @@ export const nav = [
 export const services: Service[] = [
   {
     title: "Abertura de empresa",
-    desc: "Orientação completa do início ao CNPJ ativo.",
+    desc: "Do planejamento ao CNPJ ativo — com orientação clara e zero confusão.",
     icon: "briefcase",
     includes: [
       "Enquadramento e viabilidade (atividade/regime)",
@@ -64,7 +65,7 @@ export const services: Service[] = [
   },
   {
     title: "Regularização",
-    desc: "Coloque a casa em ordem e evite dor de cabeça.",
+    desc: "Coloque tudo em dia, reduza riscos e evite multas e bloqueios.",
     icon: "shield",
     includes: [
       "Diagnóstico do que está pendente",
@@ -75,7 +76,7 @@ export const services: Service[] = [
   },
   {
     title: "Encerramento",
-    desc: "Encerramento correto, com segurança e transparência.",
+    desc: "Encerramento correto e sem surpresas — do início ao fim, com transparência.",
     icon: "check",
     includes: [
       "Análise do cenário e pendências",
@@ -86,7 +87,7 @@ export const services: Service[] = [
   },
   {
     title: "Aposentadoria",
-    desc: "Acompanhamento e orientação com clareza.",
+    desc: "Orientação organizada para você entender o caminho e seguir com segurança.",
     icon: "user",
     includes: [
       "Entendimento do seu histórico e objetivo",
@@ -97,7 +98,7 @@ export const services: Service[] = [
   },
   {
     title: "Créditos tributários",
-    desc: "Análise de oportunidades e recuperação quando aplicável.",
+    desc: "Análise técnica para identificar oportunidades e recuperar valores quando aplicável.",
     icon: "coin",
     includes: [
       "Triagem para identificar oportunidades",
@@ -108,7 +109,7 @@ export const services: Service[] = [
   },
   {
     title: "Certificado digital",
-    desc: "Emissão e suporte para o dia a dia da empresa.",
+    desc: "Emissão, renovação e suporte pra você usar no dia a dia sem dor de cabeça.",
     icon: "key",
     includes: [
       "Orientação para escolher o tipo ideal",
@@ -131,19 +132,19 @@ export const segments = [
 export const faqs = [
   {
     q: "Quais documentos preciso para abrir uma empresa?",
-    a: "Depende da atividade e do regime, mas geralmente RG/CPF, comprovante de endereço e informações do negócio. A gente te orienta passo a passo.",
+    a: "Depende da atividade e do regime, mas geralmente RG/CPF, comprovante de endereço e informações do negócio. A gente te orienta passo a passo e já te passa um checklist certinho.",
   },
   {
     q: "Vocês atendem por WhatsApp?",
-    a: "Sim. O atendimento é rápido e direto. Se preferir, também respondemos por e-mail quando necessário.",
+    a: "Sim! O atendimento é rápido e direto. Se precisar de algo mais detalhado, também seguimos por e-mail.",
   },
   {
     q: "Dá pra fazer tudo online?",
-    a: "Na maioria dos casos, sim. Coletamos informações, organizamos documentos e conduzimos o processo com acompanhamento.",
+    a: "Na maioria dos casos, sim. A gente coleta informações, organiza documentos e conduz o processo com acompanhamento — do começo ao fim.",
   },
   {
     q: "Como eu peço uma cotação?",
-    a: "Você pode chamar no WhatsApp ou usar o formulário de contato. A gente retorna com orientação e próximos passos.",
+    a: "Chama no WhatsApp ou use o formulário de contato. A gente entende seu cenário, orienta o melhor caminho e retorna com os próximos passos.",
   },
 ];
 

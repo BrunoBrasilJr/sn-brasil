@@ -185,11 +185,12 @@ export default function ServicosPage() {
               </div>
 
               <h1 className="mt-6 text-3xl font-semibold tracking-tight text-brand-ink sm:text-5xl">
-                Escolha com clareza. Contrate com segurança.
+                Serviços que tiram a burocracia do seu caminho
               </h1>
 
               <p className="mx-auto mt-4 max-w-2xl text-base text-brand-muted sm:text-lg">
-                Selecione um serviço e clique em <b>Mensagem</b>. A mensagem no WhatsApp já vai pronta, do jeitinho certo.
+                Selecione um serviço e clique em <b>Mensagem</b>. Você já abre o WhatsApp com um texto pronto — e a gente
+                responde de forma rápida, humana e direta.
               </p>
 
               <div className="mt-7 flex flex-col items-center justify-center gap-3 sm:flex-row">
@@ -199,7 +200,7 @@ export default function ServicosPage() {
                   rel="noreferrer"
                   className="inline-flex w-full items-center justify-center rounded-xl bg-brand-green px-6 py-3 text-sm font-semibold text-white shadow-soft transition hover:bg-brand-green-dark sm:w-auto"
                 >
-                  Falar no WhatsApp
+                  Falar com um contador agora
                 </a>
               </div>
 
@@ -243,14 +244,14 @@ export default function ServicosPage() {
             <div className="mb-10">
               <div className="text-xs font-semibold uppercase tracking-wide text-brand-muted">Catálogo</div>
               <h2 className="mt-2 text-2xl font-semibold tracking-tight text-brand-ink sm:text-3xl">
-                Serviços contábeis claros, sem complicação
+                Escolha o que você precisa — a gente cuida do resto
               </h2>
               <p className="mt-3 max-w-2xl text-sm text-brand-muted">
-                Cards com escopo e exemplos do que normalmente está incluso. Se quiser, a gente adapta ao seu cenário.
+                Aqui você vê o escopo de cada serviço e exemplos do que normalmente está incluso. Se o seu caso for
+                diferente, a gente adapta ao seu cenário.
               </p>
             </div>
 
-            {/* ✅ ALTERADO SOMENTE AQUI: alinhamento + animação nos cards */}
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
               {services.map((s: any) => {
                 const msg = serviceWhatsappMessage(s.title);
@@ -274,7 +275,6 @@ export default function ServicosPage() {
                         </span>
                       </div>
 
-                      {/* trava as descrições pra alinhar o “miolo” */}
                       <p className="mt-2 min-h-[44px] text-sm leading-relaxed text-brand-muted">{s.desc}</p>
                     </header>
 
@@ -283,7 +283,6 @@ export default function ServicosPage() {
                     <div className="flex flex-1 flex-col p-6">
                       <div className="text-xs font-semibold uppercase tracking-wide text-brand-muted">Inclui</div>
 
-                      {/* trava a lista pra alinhar o rodapé do card */}
                       <div className="mt-4 min-h-[156px]">
                         <ul className="space-y-3 text-sm text-brand-muted">
                           {Array.isArray(s.includes) &&
@@ -308,7 +307,11 @@ export default function ServicosPage() {
                             rel="noreferrer"
                             className="inline-flex items-center justify-center rounded-xl bg-brand-green px-6 py-3 text-sm font-semibold text-white shadow-soft transition hover:bg-brand-green-dark"
                           >
-                            Mensagem <Icon name="arrow" className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                            Mensagem{" "}
+                            <Icon
+                              name="arrow"
+                              className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-0.5"
+                            />
                           </a>
                         </div>
                       </div>
@@ -322,7 +325,6 @@ export default function ServicosPage() {
           <SectionDivider />
         </section>
 
-        {/* ✅ SESSÃO DE DÚVIDA: INTACTA, igual ao teu código */}
         <section className="pb-16">
           <div className="container-page">
             <div className="relative mx-auto max-w-3xl text-center">
@@ -362,7 +364,7 @@ export default function ServicosPage() {
                     rel="noreferrer"
                     className="inline-flex items-center justify-center rounded-xl bg-brand-green px-8 py-3 text-sm font-semibold text-white shadow-soft transition hover:bg-brand-green-dark"
                   >
-                    Falar com um contador agora
+                    Quero uma orientação agora
                   </a>
                 </div>
 

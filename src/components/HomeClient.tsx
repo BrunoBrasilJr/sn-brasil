@@ -76,22 +76,19 @@ function PageBackground({ children }: { children: React.ReactNode }) {
         <div
           className="absolute -left-40 -top-44 h-[520px] w-[520px] rounded-full opacity-60 blur-3xl"
           style={{
-            background:
-              "radial-gradient(circle at 30% 30%, rgba(212,175,55,0.18), transparent 60%)",
+            background: "radial-gradient(circle at 30% 30%, rgba(212,175,55,0.18), transparent 60%)",
           }}
         />
         <div
           className="absolute -right-44 -top-40 h-[560px] w-[560px] rounded-full opacity-60 blur-3xl"
           style={{
-            background:
-              "radial-gradient(circle at 60% 40%, rgba(14,107,82,0.14), transparent 62%)",
+            background: "radial-gradient(circle at 60% 40%, rgba(14,107,82,0.14), transparent 62%)",
           }}
         />
         <div
           className="absolute left-1/2 top-[48%] h-[620px] w-[620px] -translate-x-1/2 rounded-full opacity-50 blur-3xl"
           style={{
-            background:
-              "radial-gradient(circle at 50% 50%, rgba(102,112,133,0.10), transparent 62%)",
+            background: "radial-gradient(circle at 50% 50%, rgba(102,112,133,0.10), transparent 62%)",
           }}
         />
         <div
@@ -209,9 +206,9 @@ export default function HomeClient() {
 
   const heroBadges = useMemo(
     () => [
-      { title: "Clareza", sub: "sem enrolação", icon: "spark" as const },
-      { title: "Agilidade", sub: "no atendimento", icon: "bolt" as const },
-      { title: "Segurança", sub: "no processo", icon: "shield" as const },
+      { title: "Clareza", sub: "pra você decidir", icon: "spark" as const },
+      { title: "Agilidade", sub: "pra resolver logo", icon: "bolt" as const },
+      { title: "Segurança", sub: "sem riscos desnecessários", icon: "shield" as const },
     ],
     []
   );
@@ -250,11 +247,11 @@ export default function HomeClient() {
                   variants={heroItem}
                   className="mt-4 text-3xl font-semibold tracking-tight text-brand-ink sm:text-5xl"
                 >
-                  Contabilidade que te deixa em paz pra focar no seu negócio.
+                  Contabilidade que te dá clareza e te deixa em paz pra tocar o seu negócio.
                 </motion.h1>
 
                 <motion.p variants={heroItem} className="mt-4 text-base text-brand-muted sm:text-lg">
-                  Abertura, regularização e rotina contábil com atendimento humano, processo claro e acompanhamento real.
+                  Abertura, regularização e rotina contábil com atendimento humano, processo organizado e acompanhamento de verdade.
                 </motion.p>
 
                 <motion.div variants={heroItem} className="mt-6 flex flex-col gap-3 sm:flex-row">
@@ -264,7 +261,7 @@ export default function HomeClient() {
                     rel="noreferrer"
                     className="inline-flex items-center justify-center rounded-xl bg-brand-green px-5 py-3 text-sm font-semibold text-white shadow-soft transition hover:bg-brand-green-dark"
                   >
-                    Falar com especialista
+                    Falar no WhatsApp agora
                   </a>
 
                   <a
@@ -358,9 +355,7 @@ export default function HomeClient() {
                       Ver contato
                     </a>
 
-                    <p className="mt-3 text-center text-xs text-brand-muted">
-                      {site.responseSLA ?? "Atendimento rápido e direto."}
-                    </p>
+                    <p className="mt-3 text-center text-xs text-brand-muted">{site.responseSLA ?? "Atendimento rápido e direto."}</p>
                   </div>
                 </div>
               </motion.div>
@@ -386,7 +381,7 @@ export default function HomeClient() {
                   <div className="text-base font-semibold text-brand-ink">Atuação e foco</div>
                   <p className="mt-2 text-sm text-brand-muted">
                     A SN Brasil Contábil atua com orientação clara para quem quer abrir, regularizar ou manter a rotina contábil
-                    em dia — sem burocracia desnecessária.
+                    em dia — com o que é necessário e sem burocracia desnecessária.
                   </p>
 
                   <div className="mt-auto">
@@ -406,7 +401,7 @@ export default function HomeClient() {
                 <div className="h-full flex flex-col rounded-[1.5rem] border border-brand-line bg-white/80 p-6 shadow-soft backdrop-blur transition hover:-translate-y-0.5 hover:shadow-md">
                   <div className="text-base font-semibold text-brand-ink">Responsabilidade técnica</div>
                   <p className="mt-2 text-sm text-brand-muted">
-                    Transparência e acompanhamento do começo ao fim. Quando você chama, você fala com gente de verdade.
+                    Transparência e acompanhamento do começo ao fim. Quando você chama, você fala com gente de verdade — e recebe orientação clara.
                   </p>
 
                   <div className="mt-auto">
@@ -469,7 +464,7 @@ export default function HomeClient() {
               <SectionTitle
                 kicker="Serviços"
                 title="O que a gente faz por você"
-                subtitle="Serviços claros, objetivos e organizados."
+                subtitle="Serviços claros, objetivos e organizados — com orientação do começo ao fim."
               />
             </Reveal>
 
@@ -482,7 +477,7 @@ export default function HomeClient() {
 
                     <div className="mt-auto">
                       <div className="mt-5 h-px w-full bg-brand-line" />
-                      <div className="mt-4 text-xs text-brand-muted">Saiba mais na página de serviços.</div>
+                      <div className="mt-4 text-xs text-brand-muted">Veja escopo e detalhes na página de serviços.</div>
                     </div>
                   </div>
                 </Reveal>
@@ -494,7 +489,7 @@ export default function HomeClient() {
                     href="/servicos"
                     className="inline-flex w-full items-center justify-center rounded-xl border border-brand-line bg-white/85 px-6 py-4 text-sm font-semibold text-brand-ink shadow-soft backdrop-blur transition hover:bg-brand-bg"
                   >
-                    Ver página de serviços
+                    Ver todos os serviços
                   </a>
                 </div>
               </Reveal>
@@ -512,9 +507,9 @@ export default function HomeClient() {
 
             <div className="mt-8 grid gap-4 lg:grid-cols-3 lg:items-stretch">
               {[
-                { step: "01", title: "Contato", desc: "Você chama e explica o que precisa. Sem burocracia." },
-                { step: "02", title: "Organização", desc: "A gente orienta, coleta documentos e resolve o caminho." },
-                { step: "03", title: "Acompanhamento", desc: "Suporte contínuo, clareza e comunicação objetiva." },
+                { step: "01", title: "Contato", desc: "Você chama e explica o que precisa. A gente entende seu cenário e orienta o caminho." },
+                { step: "02", title: "Organização", desc: "Coletamos documentos e alinhamos o que é necessário — sem enrolação e sem surpresas." },
+                { step: "03", title: "Acompanhamento", desc: "Você tem suporte contínuo, clareza e comunicação objetiva no dia a dia." },
               ].map((item, idx) => (
                 <Reveal key={item.step} delay={idx * 0.05}>
                   <div className="group relative h-full overflow-hidden rounded-[1.5rem] border border-brand-line bg-white/80 p-6 shadow-soft backdrop-blur transition hover:-translate-y-0.5 hover:shadow-md">
@@ -605,7 +600,7 @@ export default function HomeClient() {
                 <div className="rounded-[1.5rem] border border-brand-line bg-white/80 p-6 shadow-soft backdrop-blur">
                   <div className="text-base font-semibold text-brand-ink">Informações</div>
                   <p className="mt-2 text-sm text-brand-muted">
-                    Você também pode entrar em contato por e-mail, telefone ou WhatsApp.
+                    Você também pode falar com a gente por e-mail, telefone ou WhatsApp. Se preferir, chama no WhatsApp e a gente te orienta rapidinho.
                   </p>
 
                   <div className="mt-6 space-y-3 text-sm">

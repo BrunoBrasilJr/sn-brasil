@@ -10,9 +10,9 @@ export default function TermosPage() {
       title="Termos de uso"
       description={
         <>
-          Regras básicas de utilização do site da{" "}
-          <b className="text-brand-ink">{site.name}</b>, incluindo responsabilidade,
-          conteúdo e forma de contato.
+          Condições gerais para uso do site da{" "}
+          <b className="text-brand-ink">{site.name}</b>, incluindo regras de navegação,
+          responsabilidade pelo conteúdo e canais de contato.
         </>
       }
       notice={{
@@ -21,7 +21,7 @@ export default function TermosPage() {
         content: (
           <>
             Este texto é um modelo institucional e pode (e deve) ser ajustado para refletir a realidade
-            da empresa. Se for publicar de forma oficial, revise com um profissional responsável.
+            da empresa. Antes de publicar oficialmente, recomendamos revisão com um profissional responsável.
           </>
         ),
       }}
@@ -39,8 +39,14 @@ export default function TermosPage() {
       }}
       summary={{
         bullets: [
-          { label: "O uso do site implica concordância com estes termos.", dotClassName: "bg-brand-green" },
-          { label: "Conteúdos são informativos; confirmações ocorrem no atendimento.", dotClassName: "bg-brand-gold" },
+          {
+            label: "Ao navegar no site, você concorda com estes Termos de Uso.",
+            dotClassName: "bg-brand-green",
+          },
+          {
+            label: "O conteúdo é informativo e não substitui orientação profissional no seu caso específico.",
+            dotClassName: "bg-brand-gold",
+          },
         ],
       }}
       sections={[
@@ -49,8 +55,8 @@ export default function TermosPage() {
           title: "1. Aceite",
           content: (
             <>
-              Ao acessar e utilizar este site, você concorda com estes Termos de Uso. Se não concordar,
-              recomendamos não utilizar o site.
+              Ao acessar e utilizar este site, você declara que leu e concorda com estes Termos de Uso. Se
+              não concordar com alguma condição, recomendamos interromper a navegação.
             </>
           ),
         },
@@ -59,9 +65,12 @@ export default function TermosPage() {
           title: "2. Uso do site",
           content: (
             <>
-              Você se compromete a utilizar o site de forma lícita e respeitosa, sem tentar explorar falhas,
-              automatizar acessos indevidos, ou praticar qualquer ato que prejudique a disponibilidade e
-              segurança da plataforma.
+              Você se compromete a utilizar o site de forma lícita e respeitosa, sem:
+              <ul className="mt-3 list-disc space-y-2 pl-5">
+                <li>tentar explorar falhas, violar medidas de segurança ou obter acesso não autorizado;</li>
+                <li>realizar automações abusivas (ex.: varreduras, ataques, scraping indevido);</li>
+                <li>praticar atos que prejudiquem a disponibilidade, integridade ou desempenho da plataforma.</li>
+              </ul>
             </>
           ),
         },
@@ -71,8 +80,8 @@ export default function TermosPage() {
           content: (
             <>
               O conteúdo exibido (textos, identidade visual, marca e materiais) pertence à{" "}
-              <b className="text-brand-ink">{site.name}</b> ou é usado com autorização. É proibida a reprodução
-              sem consentimento, salvo quando permitido por lei.
+              <b className="text-brand-ink">{site.name}</b> ou é utilizado com autorização/licença. É vedada
+              a reprodução, distribuição ou modificação sem consentimento prévio, salvo quando permitido por lei.
             </>
           ),
         },
@@ -81,10 +90,10 @@ export default function TermosPage() {
           title: "4. Responsabilidade",
           content: (
             <>
-              Informações no site podem ter caráter introdutório/informativo. Decisões finais e orientações
-              formais devem ser confirmadas pelo atendimento. A{" "}
-              <b className="text-brand-ink">{site.name}</b> não se responsabiliza por danos decorrentes do uso
-              das informações sem validação adequada ao caso concreto.
+              As informações publicadas no site têm caráter geral e informativo. Como regras e procedimentos podem
+              variar conforme o caso, a orientação formal deve ser confirmada no atendimento. A{" "}
+              <b className="text-brand-ink">{site.name}</b> não se responsabiliza por decisões tomadas exclusivamente
+              com base no conteúdo do site, sem análise do cenário específico.
             </>
           ),
         },
@@ -93,7 +102,7 @@ export default function TermosPage() {
           title: "5. Contato",
           content: (
             <>
-              Para dúvidas sobre estes Termos, entre em contato pelo e-mail{" "}
+              Para dúvidas sobre estes Termos, fale com a gente pelo e-mail{" "}
               <b className="text-brand-ink">{site.email}</b>.
             </>
           ),
@@ -103,8 +112,8 @@ export default function TermosPage() {
           title: "6. Alterações",
           content: (
             <>
-              Estes Termos podem ser atualizados a qualquer momento para refletir melhorias no serviço e
-              adequações legais. A data da última atualização fica no final desta página.
+              Estes Termos podem ser atualizados a qualquer momento para refletir melhorias no site, mudanças em
+              serviços e adequações legais. A data da última atualização ficará indicada ao final desta página.
             </>
           ),
         },
@@ -115,9 +124,7 @@ export default function TermosPage() {
             title: "Controlador dos dados",
             content: (
               <>
-                <b className="text-brand-ink">
-                  {site.legalName ? site.legalName : site.name}
-                </b>
+                <b className="text-brand-ink">{site.legalName ? site.legalName : site.name}</b>
                 {site.cnpj ? ` — CNPJ ${site.cnpj}` : ""}.
               </>
             ),
@@ -131,7 +138,7 @@ export default function TermosPage() {
             ),
           },
         ],
-        footer: <>Termos de uso • versão {updatedAt}</>,
+        footer: <>Termos de uso • atualizado em {updatedAt}</>,
       }}
       updatedAt={updatedAt}
     />
