@@ -1,37 +1,38 @@
+import type { ReactNode } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { site } from "@/lib/site";
 
-type TocItem = {
-  href: string; // ex: "#dados"
-  label: string; // ex: "1. Dados coletados"
-};
-
-type SummaryBullet = {
+export type TocItem = {
+  href: string;
   label: string;
-  dotClassName?: string; // ex: "bg-brand-green"
 };
 
-type SectionItem = {
-  id: string; // ex: "dados"
+export type SummaryBullet = {
+  label: string;
+  dotClassName?: string;
+};
+
+export type SectionItem = {
+  id: string;
   title: string;
-  content: React.ReactNode;
+  content: ReactNode;
 };
 
-type ControllerCard = {
+export type ControllerCard = {
   title: string;
-  content: React.ReactNode;
+  content: ReactNode;
 };
 
-type InstitutionalPageTemplateProps = {
+export type InstitutionalPageTemplateProps = {
   pillLabel: string;
   title: string;
-  description: React.ReactNode;
+  description: ReactNode;
 
   notice?: {
     title: string;
     badge?: string;
-    content: React.ReactNode;
+    content: ReactNode;
   };
 
   toc?: {
@@ -47,15 +48,15 @@ type InstitutionalPageTemplateProps = {
   sections: SectionItem[];
 
   controller?: {
-    eyebrow?: string; // ex: "Informações do controlador"
-    cards: [ControllerCard, ControllerCard]; // 2 colunas
-    footer?: React.ReactNode; // ex: ultima atualização + tag
+    eyebrow?: string;
+    cards: [ControllerCard, ControllerCard];
+    footer?: ReactNode;
   };
 
-  updatedAt?: string; // se quiser forçar
+  updatedAt?: string;
 };
 
-function PageBackground({ children }: { children: React.ReactNode }) {
+function PageBackground({ children }: { children: ReactNode }) {
   return (
     <div className="relative isolate min-h-screen bg-[#FAFBFC]">
       <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
@@ -125,13 +126,7 @@ function Pill({ label }: { label: string }) {
   );
 }
 
-function MiniCard({
-  title,
-  children,
-}: {
-  title: string;
-  children: React.ReactNode;
-}) {
+function MiniCard({ title, children }: { title: string; children: ReactNode }) {
   return (
     <section
       className="rounded-2xl border border-brand-line bg-white/80 p-6 shadow-soft backdrop-blur"
@@ -145,13 +140,7 @@ function MiniCard({
   );
 }
 
-function TocLink({
-  href,
-  children,
-}: {
-  href: string;
-  children: React.ReactNode;
-}) {
+function TocLink({ href, children }: { href: string; children: ReactNode }) {
   return (
     <a
       href={href}
@@ -173,8 +162,7 @@ export default function InstitutionalPageTemplate({
   controller,
   updatedAt,
 }: InstitutionalPageTemplateProps) {
-  const finalUpdatedAt =
-    updatedAt ?? new Date().toLocaleDateString("pt-BR");
+  const finalUpdatedAt = updatedAt ?? new Date().toLocaleDateString("pt-BR");
 
   return (
     <PageBackground>
@@ -243,16 +231,25 @@ export default function InstitutionalPageTemplate({
                 )}
 
                 {summary && (
-                  <div className={`${toc ? "mt-4" : ""} rounded-2xl border border-brand-line bg-white/70 p-4 shadow-soft backdrop-blur`}>
+                  <div
+                    className={`${
+                      toc ? "mt-4" : ""
+                    } rounded-2xl border border-brand-line bg-white/70 p-4 shadow-soft backdrop-blur`}
+                  >
                     <div className="text-xs font-semibold uppercase tracking-wide text-brand-muted">
                       {summary.title ?? "Em resumo"}
                     </div>
 
                     <ul className="mt-3 space-y-2 text-sm text-brand-muted">
                       {summary.bullets.map((b, idx) => (
-                        <li key={`${b.label}-${idx}`} className="flex items-start gap-3">
+                        <li
+                          key={`${b.label}-${idx}`}
+                          className="flex items-start gap-3"
+                        >
                           <span
-                            className={`mt-2 h-2 w-2 rounded-full ${b.dotClassName ?? "bg-brand-green"}`}
+                            className={`mt-2 h-2 w-2 rounded-full ${
+                              b.dotClassName ?? "bg-brand-green"
+                            }`}
                           />
                           <span>{b.label}</span>
                         </li>
@@ -270,7 +267,6 @@ export default function InstitutionalPageTemplate({
                   </div>
                 ))}
 
-                {/* CONTROLADOR (opcional) */}
                 {controller && (
                   <div
                     className="scroll-mt-28 rounded-2xl border border-brand-line bg-white/70 p-6 shadow-soft backdrop-blur"
@@ -304,7 +300,9 @@ export default function InstitutionalPageTemplate({
                     >
                       <span>Última atualização: {finalUpdatedAt}</span>
                       {controller.footer ? (
-                        <span className="text-brand-muted/80">{controller.footer}</span>
+                        <span className="text-brand-muted/80">
+                          {controller.footer}
+                        </span>
                       ) : (
                         <span className="text-brand-muted/80">
                           Documento informativo • sujeito a revisão
@@ -314,14 +312,12 @@ export default function InstitutionalPageTemplate({
                   </div>
                 )}
 
-                {/* FALLBACK atualização (se não tiver controlador) */}
                 {!controller && (
                   <div className="pt-2 text-xs text-brand-muted">
                     Última atualização: {finalUpdatedAt}
                   </div>
                 )}
 
-                {/* Contato rápido padrão (bem discreto) */}
                 <div className="rounded-2xl border border-brand-line bg-white/60 p-5 text-sm text-brand-muted shadow-soft backdrop-blur">
                   Se tiver qualquer dúvida, fala com a{" "}
                   <b className="text-brand-ink">{site.name}</b> em{" "}

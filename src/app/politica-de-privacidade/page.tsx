@@ -4,115 +4,298 @@ import { site } from "@/lib/site";
 export default function PoliticaDePrivacidadePage() {
   return (
     <InstitutionalPageTemplate
-      pillLabel="Privacidade"
-      title="Política de privacidade"
+      pillLabel="Política de Privacidade"
+      title="Política de Privacidade"
       description={
         <>
-          Transparência sobre como usamos informações enviadas por você ao entrar
-          em contato com a <b className="text-brand-ink">{site.name}</b>.
+          Esta Política descreve como a <b>{site.name}</b> coleta, usa e protege
+          dados pessoais ao utilizar este site e seus canais de atendimento.
         </>
       }
       notice={{
         title: "Aviso importante",
         badge: "Recomenda-se revisão jurídica",
-        body: (
+        content: (
           <>
             Este texto pode ser ajustado para refletir práticas específicas da
             empresa e recomenda-se revisão com um profissional responsável antes
-            de publicação oficial.
+            da publicação oficial.
           </>
         ),
       }}
-      tocItems={[
-        { href: "#dados", label: "1. Dados coletados" },
-        { href: "#finalidade", label: "2. Finalidade" },
-        { href: "#compartilhamento", label: "3. Compartilhamento" },
-        { href: "#seguranca", label: "4. Segurança" },
-        { href: "#contato", label: "5. Contato" },
-        { href: "#info", label: "Controlador e endereço" },
-        { href: "#atualizacao", label: "Última atualização" },
-      ]}
-      summaryItems={[
-        { color: "green", text: "Usamos seus dados só para atendimento e retorno." },
-        { color: "gold", text: "Não vendemos dados." },
-      ]}
+      toc={{
+        title: "Nesta página",
+        items: [
+          { href: "#definicoes", label: "1. Definições" },
+          { href: "#dados", label: "2. Dados coletados" },
+          { href: "#finalidades", label: "3. Finalidades" },
+          { href: "#bases-legais", label: "4. Bases legais" },
+          { href: "#compartilhamento", label: "5. Compartilhamento" },
+          { href: "#cookies", label: "6. Cookies e tecnologias" },
+          { href: "#armazenamento", label: "7. Armazenamento e segurança" },
+          { href: "#direitos", label: "8. Direitos do titular" },
+          { href: "#contato", label: "9. Contato" },
+        ],
+      }}
+      summary={{
+        title: "Em resumo",
+        bullets: [
+          {
+            label:
+              "Coletamos apenas o necessário para atendimento, comunicação e melhoria da experiência.",
+            dotClassName: "bg-brand-green",
+          },
+          {
+            label:
+              "Você pode solicitar acesso, correção ou exclusão de dados conforme a LGPD.",
+            dotClassName: "bg-brand-gold",
+          },
+          {
+            label:
+              "Adotamos medidas de segurança e limitamos o acesso aos dados ao mínimo necessário.",
+            dotClassName: "bg-brand-ink",
+          },
+        ],
+      }}
       sections={[
         {
-          id: "dados",
-          title: "1. Dados coletados",
-          body: (
+          id: "definicoes",
+          title: "1. Definições",
+          content: (
             <>
-              Coletamos informações fornecidas por você em formulários e contato
-              (como nome, e-mail, telefone/WhatsApp e mensagem) com a finalidade
-              de responder sua solicitação.
+              <p>
+                Para facilitar a leitura, usamos alguns termos comuns nesta
+                Política:
+              </p>
+              <ul className="mt-3 list-disc space-y-2 pl-5">
+                <li>
+                  <b>Dados pessoais</b>: informações que identificam ou podem
+                  identificar uma pessoa (ex.: nome, e-mail, telefone).
+                </li>
+                <li>
+                  <b>Titular</b>: a pessoa a quem os dados pessoais se referem.
+                </li>
+                <li>
+                  <b>Tratamento</b>: qualquer operação com dados (coletar, usar,
+                  armazenar, compartilhar, excluir).
+                </li>
+                <li>
+                  <b>Controlador</b>: quem decide como e por que os dados serão
+                  tratados.
+                </li>
+              </ul>
             </>
           ),
         },
         {
-          id: "finalidade",
-          title: "2. Finalidade",
-          body: (
+          id: "dados",
+          title: "2. Dados coletados",
+          content: (
             <>
-              Utilizamos os dados para atendimento, esclarecimento de dúvidas,
-              envio de orientações e retorno de contato.
+              <p>
+                Podemos coletar dados fornecidos diretamente por você e dados
+                coletados automaticamente durante o uso do site.
+              </p>
+
+              <div className="mt-4 space-y-4">
+                <div>
+                  <p className="font-semibold text-brand-ink">
+                    2.1 Dados fornecidos por você
+                  </p>
+                  <ul className="mt-2 list-disc space-y-2 pl-5">
+                    <li>Nome e sobrenome</li>
+                    <li>E-mail</li>
+                    <li>Telefone/WhatsApp</li>
+                    <li>Mensagem enviada via formulário/canais de contato</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <p className="font-semibold text-brand-ink">
+                    2.2 Dados coletados automaticamente
+                  </p>
+                  <ul className="mt-2 list-disc space-y-2 pl-5">
+                    <li>
+                      Dados técnicos (IP, navegador, sistema operacional,
+                      resolução de tela)
+                    </li>
+                    <li>
+                      Dados de navegação (páginas visitadas, tempo de sessão,
+                      origem de tráfego)
+                    </li>
+                    <li>
+                      Cookies e identificadores semelhantes (conforme seção de
+                      Cookies)
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </>
+          ),
+        },
+        {
+          id: "finalidades",
+          title: "3. Finalidades do tratamento",
+          content: (
+            <>
+              <p>Utilizamos dados pessoais para:</p>
+              <ul className="mt-3 list-disc space-y-2 pl-5">
+                <li>Responder solicitações e dúvidas</li>
+                <li>Prestar atendimento e suporte</li>
+                <li>Enviar comunicações quando solicitado/necessário</li>
+                <li>Melhorar a experiência e desempenho do site</li>
+                <li>Prevenir fraudes e garantir segurança</li>
+                <li>Cumprir obrigações legais e regulatórias</li>
+              </ul>
+            </>
+          ),
+        },
+        {
+          id: "bases-legais",
+          title: "4. Bases legais (LGPD)",
+          content: (
+            <>
+              <p>
+                O tratamento de dados pessoais ocorre com base em uma ou mais
+                hipóteses legais, como:
+              </p>
+              <ul className="mt-3 list-disc space-y-2 pl-5">
+                <li>Execução de contrato ou de procedimentos preliminares</li>
+                <li>Cumprimento de obrigação legal/regulatória</li>
+                <li>Legítimo interesse (com avaliação e medidas de mitigação)</li>
+                <li>Consentimento (quando aplicável)</li>
+              </ul>
             </>
           ),
         },
         {
           id: "compartilhamento",
-          title: "3. Compartilhamento",
-          body: (
+          title: "5. Compartilhamento de dados",
+          content: (
             <>
-              Não vendemos dados. Compartilhamento pode ocorrer apenas quando
-              necessário para prestação do serviço ou por obrigação legal.
+              <p>
+                Podemos compartilhar dados com fornecedores que ajudam a operar
+                este site e prestar serviços (ex.: hospedagem, analytics,
+                atendimento), sempre com o mínimo necessário e observando
+                segurança e confidencialidade.
+              </p>
+              <p className="mt-3">
+                Também podemos compartilhar dados quando exigido por lei,
+                determinação judicial/administrativa, ou para proteção de
+                direitos.
+              </p>
             </>
           ),
         },
         {
-          id: "seguranca",
-          title: "4. Segurança",
-          body: (
+          id: "cookies",
+          title: "6. Cookies e tecnologias similares",
+          content: (
             <>
-              Adotamos medidas para proteger informações contra acesso não
-              autorizado. Ainda assim, nenhum sistema é 100% imune.
+              <p>
+                Cookies são pequenos arquivos armazenados no seu dispositivo
+                para melhorar a navegação, entender uso do site e personalizar
+                conteúdo.
+              </p>
+              <ul className="mt-3 list-disc space-y-2 pl-5">
+                <li>
+                  <b>Necessários</b>: essenciais para funcionamento básico
+                </li>
+                <li>
+                  <b>Analíticos</b>: ajudam a entender como o site é utilizado
+                </li>
+                <li>
+                  <b>Preferências</b>: lembram escolhas (quando aplicável)
+                </li>
+              </ul>
+              <p className="mt-3">
+                Você pode gerenciar cookies nas configurações do seu navegador.
+              </p>
+            </>
+          ),
+        },
+        {
+          id: "armazenamento",
+          title: "7. Armazenamento e segurança",
+          content: (
+            <>
+              <p>
+                Mantemos dados pelo tempo necessário para cumprir as finalidades
+                descritas nesta Política, respeitando prazos legais e
+                regulatórios.
+              </p>
+              <p className="mt-3">
+                Adotamos medidas técnicas e organizacionais para proteger dados
+                contra acessos não autorizados, perda, alteração indevida ou
+                divulgação.
+              </p>
+            </>
+          ),
+        },
+        {
+          id: "direitos",
+          title: "8. Direitos do titular",
+          content: (
+            <>
+              <p>
+                Você pode solicitar, a qualquer momento, conforme aplicável:
+              </p>
+              <ul className="mt-3 list-disc space-y-2 pl-5">
+                <li>Confirmação de tratamento e acesso aos dados</li>
+                <li>Correção de dados incompletos/inexatos</li>
+                <li>Anonimização, bloqueio ou eliminação</li>
+                <li>Portabilidade (quando aplicável)</li>
+                <li>Informação sobre compartilhamentos</li>
+                <li>Revogação do consentimento (quando aplicável)</li>
+              </ul>
             </>
           ),
         },
         {
           id: "contato",
-          title: "5. Contato",
-          body: (
+          title: "9. Contato",
+          content: (
             <>
-              Para dúvidas sobre privacidade, entre em contato pelo e-mail:{" "}
-              <b className="text-brand-ink">{site.email}</b>.
+              <p>
+                Para exercer seus direitos ou tirar dúvidas sobre esta Política,
+                entre em contato:
+              </p>
+              <ul className="mt-3 list-disc space-y-2 pl-5">
+                <li>
+                  <b>E-mail:</b> {site.email}
+                </li>
+              </ul>
+              <p className="mt-3">
+                Podemos solicitar informações adicionais para confirmar sua
+                identidade antes de atender determinadas solicitações.
+              </p>
             </>
           ),
         },
       ]}
-      infoBlock={{
-        title: "Informações do controlador",
+      controller={{
+        eyebrow: "Informações do controlador",
         cards: [
           {
-            title: "Controlador dos dados",
-            body: (
+            title: "Controlador",
+            content: (
               <>
-                <b className="text-brand-ink">
-                  {site.legalName ? site.legalName : site.name}
-                </b>
-                {site.cnpj ? ` — CNPJ ${site.cnpj}` : ""}.
+                <b>{site.name}</b>
               </>
             ),
           },
           {
-            title: "Endereço comercial",
-            body: (
+            title: "Canal de contato",
+            content: (
               <>
-                <b className="text-brand-ink">{site.address}</b> — {site.cityState}.
+                E-mail: <b>{site.email}</b>
               </>
             ),
           },
         ],
+        footer: <span>Baseado na LGPD • Conteúdo sujeito a revisão</span>,
       }}
+      updatedAt={new Date().toLocaleDateString("pt-BR")}
     />
   );
 }
